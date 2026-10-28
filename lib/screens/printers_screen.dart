@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:thermal_printer/esc_pos_utils_platform/src/capability_profile.dart';
 import 'package:thermal_printer/esc_pos_utils_platform/src/enums.dart';
 import 'package:thermal_printer/esc_pos_utils_platform/src/generator.dart';
@@ -379,8 +380,25 @@ class _PrinterScreenState extends State<PrinterScreen> {
                       ),
                     ),
                   ),
-                )
+                  
+                ),
+                   ElevatedButton(
+                        onPressed: () async {
+                          await SunmiPrinter.lcdInitialize(); //Initialize the LCD
+                          await SunmiPrinter.lcdWakeup(); //Turn the LCD ON
+                          await SunmiPrinter.lcdSleep(); //Turn the LCD OFF
+                          await SunmiPrinter.lcdClear(); //Clear LCD screen
+                          await SunmiPrinter.lcdString(
+                              'Hello'); //Write a simple line
+                          await SunmiPrinter.lcdString(
+                              'Hello'); //Write a simple line
+                          await SunmiPrinter.lcdDoubleString(
+                              'Hello', 'World'); //Wr
+                        },
+                        child: const Text('LCD Function')),
+                
               ],
+              
             ),
           ),
         ),
